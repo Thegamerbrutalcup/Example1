@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saffron & Spice — Fine Indian Dining</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C8972A;
+    --gold-light: #E8C96A;
+    --deep: #1A0F05;
+    --warm: #2D1A0A;
+    --cream: #FBF5EC;
+    --text: #3A2510;
+    --muted: #8A7060;
+    --accent: #D4451A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(26, 15, 5, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 151, 42, 0.2);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(251, 245, 236, 0.7);
+    text-decoration: none; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-btn {
+    background: var(--gold);
+    color: var(--deep) !important;
+    padding: 10px 24px !important;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh; min-height: 700px;
+    background: var(--deep);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,151,42,0.15), transparent),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(212,69,26,0.1), transparent),
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(200,151,42,0.08), transparent);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 20px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(200,151,42,0.4);
+    padding: 8px 24px; margin-bottom: 32px;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    color: var(--cream); line-height: 1.0;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; display: block; }
+  .hero-sub {
+    margin-top: 24px; font-size: 16px; color: rgba(251,245,236,0.55);
+    font-weight: 300; letter-spacing: 0.5px; line-height: 1.8;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .hero-actions {
+    margin-top: 48px; display: flex; gap: 16px; justify-content: center;
+    animation: fadeUp 1s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--deep);
+    padding: 16px 40px; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 500;
+    text-decoration: none; transition: all 0.3s;
+    border: 2px solid var(--gold);
+  }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .btn-outline {
+    border: 1px solid rgba(251,245,236,0.3); color: var(--cream);
+    padding: 16px 40px; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 300;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(251,245,236,0.3); font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; animation: pulse 2s infinite;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(200,151,42,0.6), transparent);
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .about-image-wrap { position: relative; }
+  .about-image-main {
+    width: 100%; aspect-ratio: 3/4;
+    background: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    font-size: 120px;
+  }
+  .about-image-float {
+    position: absolute; bottom: -30px; right: -30px;
+    width: 200px; aspect-ratio: 1;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .about-image-float .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; color: var(--deep); font-weight: 700; line-height: 1;
+  }
+  .about-image-float .label {
+    font-size: 11px; letter-spacing: 2px; color: var(--deep);
+    text-transform: uppercase; opacity: 0.7; margin-top: 4px;
+  }
+  .section-tag {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.15; color: var(--text);
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .about-text {
+    margin-top: 24px; font-size: 16px; line-height: 1.9;
+    color: var(--muted); font-weight: 300;
+  }
+  .about-stats {
+    margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px; color: var(--text); line-height: 1;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; letter-spacing: 0.5px; }
+
+  /* DIVIDER */
+  .ornament {
+    text-align: center; padding: 20px 0;
+    color: var(--gold); font-size: 24px; letter-spacing: 16px; opacity: 0.5;
+  }
+
+  /* MENU */
+  .menu-section {
+    background: var(--deep);
+    padding: 120px 60px;
+  }
+  .menu-header { text-align: center; margin-bottom: 80px; }
+  .menu-header .section-title { color: var(--cream); }
+  .menu-header .section-title em { color: var(--gold); }
+  .menu-header p {
+    margin-top: 16px; color: rgba(251,245,236,0.45);
+    font-size: 15px; font-weight: 300;
+  }
+  .menu-tabs {
+    display: flex; justify-content: center; gap: 0;
+    margin-bottom: 60px; border-bottom: 1px solid rgba(200,151,42,0.15);
+  }
+  .tab {
+    padding: 14px 36px; font-size: 12px; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(251,245,236,0.4);
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.3s; background: none; border-top: none;
+    border-left: none; border-right: none; font-family: 'DM Sans', sans-serif;
+  }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab:hover { color: var(--gold-light); }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2px; max-width: 960px; margin: 0 auto;
+  }
+  .menu-item {
+    padding: 32px 36px;
+    border: 1px solid rgba(200,151,42,0.08);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    transition: background 0.3s;
+  }
+  .menu-item:hover { background: rgba(200,151,42,0.05); }
+  .menu-item-left { flex: 1; }
+  .menu-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--cream); font-weight: 400;
+  }
+  .menu-desc {
+    font-size: 13px; color: rgba(251,245,236,0.35);
+    margin-top: 6px; line-height: 1.6; max-width: 300px;
+  }
+  .menu-badge {
+    display: inline-block; font-size: 9px; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 3px 10px;
+    background: rgba(200,151,42,0.15); color: var(--gold);
+    margin-top: 10px; border: 1px solid rgba(200,151,42,0.3);
+  }
+  .menu-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--gold);
+    white-space: nowrap; margin-left: 24px;
+  }
+
+  /* EXPERIENCE */
+  .experience {
+    padding: 120px 60px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .experience-header { text-align: center; margin-bottom: 80px; }
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .exp-card {
+    background: var(--warm);
+    padding: 60px 40px; text-align: center;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .exp-card:hover { transform: translateY(-4px); }
+  .exp-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0);
+    transition: transform 0.3s; transform-origin: center;
+  }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-icon {
+    font-size: 36px; margin-bottom: 24px; display: block;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--cream); margin-bottom: 16px;
+  }
+  .exp-text { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+  /* GALLERY */
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 300px 300px; gap: 4px; }
+  .gallery-item {
+    background: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(4) { grid-row: span 2; }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26,15,5,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; color: var(--gold-light);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    background: var(--gold);
+    padding: 100px 60px; text-align: center;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px; color: rgba(26,15,5,0.15);
+    line-height: 0.5; margin-bottom: 40px;
+  }
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    color: var(--deep); line-height: 1.5;
+    max-width: 800px; margin: 0 auto; font-style: italic;
+  }
+  .quote-author {
+    margin-top: 32px; font-size: 13px; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(26,15,5,0.6);
+  }
+
+  /* RESERVATION */
+  .reservation {
+    background: var(--deep); padding: 120px 60px; text-align: center;
+  }
+  .reservation .section-title { color: var(--cream); }
+  .reservation p { color: rgba(251,245,236,0.4); margin-top: 16px; margin-bottom: 60px; font-size: 15px; }
+  .res-form {
+    display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 2px; max-width: 900px; margin: 0 auto;
+  }
+  .res-form input, .res-form select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,151,42,0.2);
+    color: var(--cream); padding: 18px 24px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.3s;
+    appearance: none;
+  }
+  .res-form input::placeholder { color: rgba(251,245,236,0.25); }
+  .res-form input:focus, .res-form select:focus { border-color: var(--gold); }
+  .res-form select option { background: var(--deep); color: var(--cream); }
+  .res-submit {
+    background: var(--gold); color: var(--deep);
+    border: none; padding: 18px 36px;
+    font-family: 'DM Sans', sans-serif; font-size: 12px;
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 500; cursor: pointer; transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .res-submit:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--warm);
+    padding: 80px 60px 40px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: var(--gold-light); margin-bottom: 16px;
+  }
+  .footer-logo span { color: var(--accent); font-style: italic; }
+  .footer-desc {
+    font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 280px;
+  }
+  .footer-heading {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 14px; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    grid-column: span 4; border-top: 1px solid rgba(200,151,42,0.15);
+    padding-top: 32px; margin-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 12px; color: var(--muted); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .about { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+    .menu-section { padding: 80px 24px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(4) { grid-row: span 1; }
+    .reservation { padding: 80px 24px; }
+    .res-form { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; padding: 60px 24px 32px; }
+    .footer-bottom { grid-column: span 2; flex-direction: column; gap: 12px; text-align: center; }
+    .experience { padding: 80px 24px; }
+    .testimonial { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Saffron <span>&</span> Spice</div>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reserve" class="nav-btn">Reserve</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Est. 2018 · Mumbai, India</div>
+    <h1>
+      Where Tradition
+      <em>Meets Taste</em>
+    </h1>
+    <p class="hero-sub">
+      An intimate dining experience celebrating India's rich culinary heritage.<br>
+      Crafted with heritage spices, reimagined for the modern palate.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#reserve" class="btn-outline">Book a Table</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image-wrap">
+    <div class="about-image-main">🪔</div>
+    <div class="about-image-float">
+      <div class="num">15+</div>
+      <div class="label">Years of craft</div>
+    </div>
+  </div>
+  <div class="about-text-wrap">
+    <span class="section-tag">Our Story</span>
+    <h2 class="section-title">
+      A Legacy of Flavor,<br>
+      <em>Crafted with Love</em>
+    </h2>
+    <p class="about-text">
+      Born in a small kitchen in South Mumbai, Saffron & Spice has grown from a cherished family recipe book into one of the city's most beloved dining destinations. Every dish carries generations of knowledge — slow-cooked gravies, hand-ground masalas, and techniques passed down through kitchens we were never meant to leave.
+    </p>
+    <p class="about-text" style="margin-top: 16px;">
+      We believe fine dining doesn't mean forgetting your roots. It means honoring them — beautifully.
+    </p>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">48<span>+</span></div>
+        <div class="stat-label">Dishes on the menu</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span>★</span></div>
+        <div class="stat-label">Times awarded Best Restaurant</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Guests served daily</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Pure vegetarian</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">✦ ✦ ✦</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <span class="section-tag" style="color: var(--gold);">Our Offerings</span>
+    <h2 class="section-title">A Menu <em>Built on Heritage</em></h2>
+    <p>Every recipe tells a story. Every ingredient is chosen with intention.</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab active">Starters</button>
+    <button class="tab">Main Course</button>
+    <button class="tab">Breads</button>
+    <button class="tab">Desserts</button>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Kakori Seekh</div>
+        <div class="menu-desc">Delicately spiced minced lamb on skewers, slow-cooked over coal</div>
+        <div class="menu-badge">Chef's Special</div>
+      </div>
+      <div class="menu-price">₹480</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Peshwari Paneer Tikka</div>
+        <div class="menu-desc">Cottage cheese in a creamy cashew marinade, char-grilled to perfection</div>
+      </div>
+      <div class="menu-price">₹380</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Dahi Ke Sholey</div>
+        <div class="menu-desc">Crispy bread rolls stuffed with spiced hung curd and herbs</div>
+        <div class="menu-badge">Vegetarian</div>
+      </div>
+      <div class="menu-price">₹320</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Amritsari Macchi</div>
+        <div class="menu-desc">River sole fillets in a bold ajwain and gram flour batter</div>
+        <div class="menu-badge">Bestseller</div>
+      </div>
+      <div class="menu-price">₹560</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Bharwan Aloo</div>
+        <div class="menu-desc">Potatoes stuffed with spiced cottage cheese, served with mint chutney</div>
+        <div class="menu-badge">Vegetarian</div>
+      </div>
+      <div class="menu-price">₹260</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-name">Smoked Chicken Platter</div>
+        <div class="menu-desc">Assorted tandoor specialties with three house chutneys</div>
+        <div class="menu-badge">For Two</div>
+      </div>
+      <div class="menu-price">₹720</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="experience-header">
+    <span class="section-tag">The Promise</span>
+    <h2 class="section-title">More Than a Meal —<br><em>An Experience</em></h2>
+  </div>
+  <div class="cards-grid">
+    <div class="exp-card">
+      <span class="exp-icon">🫙</span>
+      <div class="exp-title">Heritage Recipes</div>
+      <p class="exp-text">Our recipes date back three generations. Nothing on this menu came from a cookbook — it came from a grandmother's kitchen.</p>
+    </div>
+    <div class="exp-card">
+      <span class="exp-icon">🌿</span>
+      <div class="exp-title">Farm Fresh Ingredients</div>
+      <p class="exp-text">We source vegetables, dairy, and spices directly from trusted farms. Fresh every morning. Compromise on nothing.</p>
+    </div>
+    <div class="exp-card">
+      <span class="exp-icon">🪔</span>
+      <div class="exp-title">Warm Ambience</div>
+      <p class="exp-text">Low lighting, live sitar music on weekends, and a team that treats every guest like they've come home for dinner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery">
+    <div class="gallery-item">🍛
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Signature Dal Makhani</span></div>
+    </div>
+    <div class="gallery-item">🫕
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Clay Pot Biryani</span></div>
+    </div>
+    <div class="gallery-item">🥘
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Dum Pukht</span></div>
+    </div>
+    <div class="gallery-item">🏮
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Our Ambience</span></div>
+    </div>
+    <div class="gallery-item">🧆
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Tandoor Selection</span></div>
+    </div>
+    <div class="gallery-item">🍮
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Gulab Jamun Soufflé</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <div class="quote-mark">"</div>
+  <p class="quote-text">
+    This is the kind of place you take someone when you want them to understand what Indian food truly is.
+    Not a buffet. Not a menu. A memory.
+  </p>
+  <div class="quote-author">— Rashmi Sharma, Food Critic, Condé Nast Traveller India</div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reserve">
+  <span class="section-tag">Book a Table</span>
+  <h2 class="section-title">Reserve Your Evening</h2>
+  <p>We recommend booking 2–3 days in advance for weekend dinners.</p>
+  <div class="res-form">
+    <input type="text" placeholder="Your Name">
+    <input type="date">
+    <select>
+      <option value="" disabled selected>Guests</option>
+      <option>1 Guest</option>
+      <option>2 Guests</option>
+      <option>3–4 Guests</option>
+      <option>5–6 Guests</option>
+      <option>7+ Guests</option>
+    </select>
+    <button class="res-submit">Reserve →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Saffron <span>&</span> Spice</div>
+    <p class="footer-desc">A fine dining experience rooted in Indian culinary tradition, reimagined for the modern table. Open since 2018.</p>
+  </div>
+  <div>
+    <div class="footer-heading">Navigate</div>
+    <ul class="footer-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-heading">Hours</div>
+    <ul class="footer-links">
+      <li><a href="#">Mon–Fri: 12pm – 3pm</a></li>
+      <li><a href="#">Mon–Fri: 7pm – 11pm</a></li>
+      <li><a href="#">Sat–Sun: 12pm – 11pm</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-heading">Contact</div>
+    <ul class="footer-links">
+      <li><a href="#">+91 98200 00000</a></li>
+      <li><a href="#">hello@saffronspice.in</a></li>
+      <li><a href="#">42, Colaba Causeway,<br>Mumbai – 400005</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Saffron & Spice. All rights reserved.</p>
+    <p>Designed & Built by <strong style="color: var(--gold);">YourName Studio</strong></p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.exp-card, .menu-item, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
